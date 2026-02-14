@@ -1,0 +1,21 @@
+import 'package:flutter/material.dart';
+
+class KeepAliveWidget extends StatefulWidget {
+  const KeepAliveWidget({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  State<KeepAliveWidget> createState() => _KeepAliveWidgetState();
+}
+
+class _KeepAliveWidgetState extends State<KeepAliveWidget> with AutomaticKeepAliveClientMixin {
+  @override
+  Widget build(BuildContext context) {
+    return widget.child;
+  }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
+}
