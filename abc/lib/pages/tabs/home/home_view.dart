@@ -35,7 +35,7 @@ class HomePage extends BaseStateless {
   Widget? get titleWidget => Obx(() => PlaceholderSearchWidget(
         width: 200.w,
         contentList: ['账单', '优惠活动', '明细查询'],
-        bgColor: Color(0xffEAF2FD).withOpacity(0.4),
+        bgColor: Color(0xff000000).withOpacity(0.1),
         textColor: logic.navActionColor.value,
       ).paddingOnly(right: 25.w));
 
