@@ -12,6 +12,7 @@ import 'package:wb_base_widget/state_widget/state_less_widget.dart';
 import '../../../config/abc_config/abc_logic.dart';
 import '../home/placeholder_search_widget.dart';
 import '../mine/main_order/main_order_view.dart';
+import '../mine/xiaodou/xiaodou_view.dart';
 import 'life_logic.dart';
 import 'life_state.dart';
 import 'life_top_banner.dart';
@@ -25,12 +26,15 @@ class LifePage extends BaseStateless {
       .state;
 
   @override
+  Color get background => Colors.white;
+
+  @override
   bool get isChangeNav => true;
 
   @override
   Function(bool change)? get onNotificationNavChange =>
           (v) {
-        logic.navActionColor.value = v ? Colors.black : Colors.white;
+        logic.navActionColor.value = v ? Colors.black : Colors.black;
       };
 
   @override
@@ -58,7 +62,7 @@ class LifePage extends BaseStateless {
             child: Obx(() =>
                 PlaceholderSearchWidget(
                   width: 240.w,
-                  bgColor: Color(0xffEAF2FD).withOpacity(0.4),
+                  bgColor: Color(0xfff1f1f1).withOpacity(0.4),
                   contentList: ['账单'],
                   textColor: logic.navActionColor.value,
                 ).paddingOnly(right: 15.w, left: 15.w)),
@@ -72,6 +76,7 @@ class LifePage extends BaseStateless {
 
   @override
   double? get lefItemWidth => 12.w;
+
 
   @override
   List<Widget>? get rightAction =>
@@ -102,28 +107,41 @@ class LifePage extends BaseStateless {
     });
   }
 
+
   @override
   Widget initBody(BuildContext context) {
     StackPosition positionActive = StackPosition(
         designWidth: 750, designHeight: 3869, deviceWidth: screenWidth);
-    StackPosition positionjingXuan = StackPosition(
-        designWidth: 750, designHeight: 5237, deviceWidth: screenWidth);
+    StackPosition positionBinFen = StackPosition(
+        designWidth: 1080, designHeight: 1118, deviceWidth: screenWidth);
     // TODO: implement initBody
     return ListView(
       padding: EdgeInsets.zero,
       children: [
         Stack(alignment: Alignment.center, children: [
-          Image(
-            image: 'life_bg_1'.png3x,
-            fit: BoxFit.fill,
-            width: screenWidth,
-          ),
-          Positioned(
-            top: 187.5.w,
-            child: LifeTopBannerWidget(),
-          )
+          Container(
+            margin: EdgeInsets.only(top: statusBarHeight + kToolbarHeight),
+            child: Image(
+              image: 'life_ads_1'.png3x,
+              fit: BoxFit.fitWidth,
+              width: screenWidth,
+            ),
+          ).withOnTap(onTap: () {
+              Get.toNamed(Routes.fixedNavPage, arguments: {
+                'title': '服务授权',
+                'image': 'life_fwsq',
+                'top':0,
+                'background':Colors.white,
+                'right':true
+              });
+          }),
+          // Positioned(
+          //   top: 187.5.w,
+          //   child: LifeTopBannerWidget(),
+          // )
         ]),
-        // SizedBox(height: 10.w),
+        SizedBox(height: 10.w),
+
 
         Stack(
           children: [
@@ -139,7 +157,7 @@ class LifePage extends BaseStateless {
                       Container(
                           color: Colors.white,
                           width: screenWidth,
-                          child: Image(image: 'life_tag_top'.png3x, width: screenWidth, fit: BoxFit.fitWidth,)),
+                          child: Image(image: 'life_tag_top'.png, width: screenWidth, fit: BoxFit.fitWidth,)),
                       Container(
                         width: 1.sw,
                         height: 142.w,
@@ -193,102 +211,186 @@ class LifePage extends BaseStateless {
           ],
         ),
 
-        Obx(() {
-          return Stack(
+        Container(
+          child: Stack(
             children: [
+              Image(image: 'life_content_1'.png, fit: BoxFit.fitWidth,),
+              // 缤纷活动
+              Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    height: 60.w,
+                    width: 1.sw,
+                  ).withOnTap(onTap: () {
+                                  Get.toNamed(Routes.fixedNavPage, arguments: {
+                                    'title': '热门活动',
+                                    'imageList': ["bfhd"],
+                                    'top': 0,
+                                    'right': true
+                                  });
+                  })),
+              // 小豆乐园
+              Positioned(
+                  top: 60.w,
+                  left: 0,
+                  child: Container(
+                    height: 180.w,
+                    width: 1.sw /2,
+                  ).withOnTap(onTap: () {
+                    Get.to(() => XiaodouPage());
+                  })),
+              // 乡村集市
+              Positioned(
+                  top: 60.w,
+                  left: 1.sw/2,
+                  child: Container(
+                    height: 90.w,
+                    width: 1.sw /2,
+                  ).withOnTap(onTap: () {
+                  Get.toNamed(Routes.fixedNavPage, arguments: {
+                    'title': '乡村集市',
+                    'imageList': ["cxjs"],
+                    'top': 0,
+                    'right': true
+                  });                  })),
+              // 茶影
+              Positioned(
+                  top: 60.w + 90.w,
+                  left: 1.sw/2,
+                  child: Container(
+                    height: 90.w,
+                    width: 1.sw /2,
+                  ).withOnTap(onTap: () {
+                  Get.toNamed(Routes.fixedNavPage, arguments: {
+                    'title': '服务授权',
+                    'imageList': ["cyyhx"],
+                    'top': 0,
+                    'right': true
+                  });                  })),
 
-              Image(image: logic.bottomImg.value.png3x),
-              Container(
-                width: 1.sw,
-                height: 45.w,
-                margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 5.w),
-                child: VerticalGridView(widgetBuilder: (context, index) {
-                  return Container().withOnTap(onTap: () {
-                    if (index == 0) {
-                      logic.bottomImg.value = 'life_tag_jx';
-                    }
-                    if (index == 1) {
-                      logic.bottomImg.value = 'life_tag_hd';
-                    }
-                    if (index == 2) {
-                      logic.bottomImg.value = 'life_tag_zk';
-                    }
-                    if (index == 3) {
-                      logic.bottomImg.value = 'life_pp';
-                    }
-                  });
-                },
-                    spacing: 5,
-                    crossSpacing: 5,
-                    crossCount: 4,
-                    itemCount: 10),
-              ),
-
-              /// 点击事件
-              if (logic.bottomImg.value == 'life_tag_hd')
-                StackPositionWidget(stackPosition: positionActive,
-                    designX: 375,
-                    designY: 101,
-                    designWidth: 338,
-                    designHeight: 441).build(
-                    onTap: () {
-                      Get.toNamed(Routes.fixedNavPage, arguments: {
-                        'title': '逛集市享优惠',
-                        'imageList': ["life_active_99_1", "life_active_99_2"],
-                        'top': 0,
-                        'right': true
-                      });
-                    }
-                ),
-              if (logic.bottomImg.value == 'life_tag_hd')
-                StackPositionWidget(stackPosition: positionActive,
-                    designX: 37,
-                    designY: 104,
-                    designWidth: 338,
-                    designHeight: 441).build(
-                    onTap: () {
-                      Get.toNamed(Routes.fixedNavPage, arguments: {
-                        'title': '农行万事达——芯双应用卡,多重...',
-                        'imageList': ["life_wsd_1", "life_wsd_2"],
-                        'top': 0,
-                        'right': true
-                      });
-                    }
-                ),
-              if (logic.bottomImg.value == 'life_tag_jx')
-                StackPositionWidget(stackPosition: positionjingXuan,
-                    designX: 380,
-                    designY: 106,
-                    designWidth: 328,
-                    designHeight: 187).build(
-                    onTap: () {
-                      Get.toNamed(Routes.fixedNavPage, arguments: {
-                        'title': '车票优享',
-                        'imageList': ["life_cpyx1", "life_cpyx2"],
-                        'top': 0,
-                        'right': true
-                      });
-                    }
-                ),
-              if (logic.bottomImg.value == 'life_tag_jx')
-                StackPositionWidget(stackPosition: positionjingXuan,
-                    designX: 40,
-                    designY: 106,
-                    designWidth: 332,
-                    designHeight: 432).build(
-                    onTap: () {
-                      Get.toNamed(Routes.fixedNavPage, arguments: {
-                        'title': '蜜雪优惠享',
-                        'imageList': ["life_mxbc"],
-                        'top': 0,
-                        'right': true
-                      });
-                    }
-                ),
+              // 海量权益
+              Positioned(
+                  bottom: 0,
+                  left: 0,
+                  child: Container(
+                    height: 150.w,
+                    width: 1.sw,
+                  ).withOnTap(onTap: () {
+                    Get.toNamed(Routes.changeNavi, arguments: {
+                      'title': '权益中心',
+                      'imageList': ["hlqy"],
+                      'isOffset': true,
+                      'rightWidget': SizedBox(),
+                      // 'navColor': Colors.transparent,
+                      'defTitleColor': Colors.black,
+                    });
+                  })),
 
             ],
-          );
-        })
+          ),
+        ),
+        Container(
+          child: Image(image: 'life_content_2'.png, fit: BoxFit.fitWidth,),
+        ),
+
+        // Obx(() {
+        //   return Stack(
+        //     children: [
+
+        //       Image(image: logic.bottomImg.value.png3x),
+        //       Container(
+        //         width: 1.sw,
+        //         height: 45.w,
+        //         margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 5.w),
+        //         child: VerticalGridView(widgetBuilder: (context, index) {
+        //           return Container().withOnTap(onTap: () {
+        //             if (index == 0) {
+        //               logic.bottomImg.value = 'life_tag_jx';
+        //             }
+        //             if (index == 1) {
+        //               logic.bottomImg.value = 'life_tag_hd';
+        //             }
+        //             if (index == 2) {
+        //               logic.bottomImg.value = 'life_tag_zk';
+        //             }
+        //             if (index == 3) {
+        //               logic.bottomImg.value = 'life_pp';
+        //             }
+        //           });
+        //         },
+        //             spacing: 5,
+        //             crossSpacing: 5,
+        //             crossCount: 4,
+        //             itemCount: 10),
+        //       ),
+
+        //       /// 点击事件
+        //       if (logic.bottomImg.value == 'life_tag_hd')
+        //         StackPositionWidget(stackPosition: positionActive,
+        //             designX: 375,
+        //             designY: 101,
+        //             designWidth: 338,
+        //             designHeight: 441).build(
+        //             onTap: () {
+        //               Get.toNamed(Routes.fixedNavPage, arguments: {
+        //                 'title': '逛集市享优惠',
+        //                 'imageList': ["life_active_99_1", "life_active_99_2"],
+        //                 'top': 0,
+        //                 'right': true
+        //               });
+        //             }
+        //         ),
+        //       if (logic.bottomImg.value == 'life_tag_hd')
+        //         StackPositionWidget(stackPosition: positionActive,
+        //             designX: 37,
+        //             designY: 104,
+        //             designWidth: 338,
+        //             designHeight: 441).build(
+        //             onTap: () {
+        //               Get.toNamed(Routes.fixedNavPage, arguments: {
+        //                 'title': '农行万事达——芯双应用卡,多重...',
+        //                 'imageList': ["life_wsd_1", "life_wsd_2"],
+        //                 'top': 0,
+        //                 'right': true
+        //               });
+        //             }
+        //         ),
+        //       if (logic.bottomImg.value == 'life_tag_jx')
+        //         StackPositionWidget(stackPosition: positionjingXuan,
+        //             designX: 380,
+        //             designY: 106,
+        //             designWidth: 328,
+        //             designHeight: 187).build(
+        //             onTap: () {
+        //               Get.toNamed(Routes.fixedNavPage, arguments: {
+        //                 'title': '车票优享',
+        //                 'imageList': ["life_cpyx1", "life_cpyx2"],
+        //                 'top': 0,
+        //                 'right': true
+        //               });
+        //             }
+        //         ),
+        //       if (logic.bottomImg.value == 'life_tag_jx')
+        //         StackPositionWidget(stackPosition: positionjingXuan,
+        //             designX: 40,
+        //             designY: 106,
+        //             designWidth: 332,
+        //             designHeight: 432).build(
+        //             onTap: () {
+        //               Get.toNamed(Routes.fixedNavPage, arguments: {
+        //                 'title': '蜜雪优惠享',
+        //                 'imageList': ["life_mxbc"],
+        //                 'top': 0,
+        //                 'right': true
+        //               });
+        //             }
+        //         ),
+
+        //     ],
+        //   );
+        // })
       ],
     );
   }
