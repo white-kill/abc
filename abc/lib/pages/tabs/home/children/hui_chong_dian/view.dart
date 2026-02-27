@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wb_base_widget/wb_base_widget.dart';
+import 'package:abc/utils/stack_position.dart';
 
 import 'logic.dart';
 import 'state.dart';
@@ -12,40 +13,11 @@ class NhhcdPage extends BaseStateless {
 
   final NhhcdLogic logic = Get.put(NhhcdLogic());
   final NhhcdState state = Get.find<NhhcdLogic>().state;
-
-  
-  @override
-  // TODO: implement bottomWidget
-  Widget? get bottomWidget => Stack(
-    children: [
-      Image(image: "hcd_bottom".png),
-      Positioned(
-        top: 24.w,
-        left: 55.w,
-        child: GetBuilder(
-          builder: (AbcLogic c) {
-            return Container(
-              width: 120.w,
-              child: Text(
-                "农行${c.memberInfo.city}分行微银行",
-                style: TextStyle(
-                    fontSize: 14.sp,
-                    color: Colors.black,
-                    height: 1.0,
-                  letterSpacing: 1.w
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            );
-          },
-          id: 'updateUI',
-        ),)
-    ],
-  );
   
   @override
   Widget initBody(BuildContext context) {
+    StackPosition stackPosition = StackPosition(
+        designWidth: 514, designHeight: 3979, deviceWidth: 1.sw);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -53,8 +25,8 @@ class NhhcdPage extends BaseStateless {
             children: [
               Image(image: "hcd_1".png),
               Positioned(
-                top: 89.w,
-                left: 18.w,
+                top: stackPosition.getY(107),
+                left: stackPosition.getX(30),
                 child: GetBuilder(
                   builder: (AbcLogic c) {
                     return Text(
@@ -67,14 +39,36 @@ class NhhcdPage extends BaseStateless {
                     );
                   },
                   id: 'updateUI',
-                ),)
+                ),
+              ),
+              // Positioned(
+              //   top: stackPosition.getY(1563),
+              //   left: stackPosition.getX(0),
+              //   child: GetBuilder(
+              //     builder: (AbcLogic c) {
+              //       return Container(
+              //         width: 1.sw,
+              //         child: Row(
+              //           mainAxisAlignment: MainAxisAlignment.center,
+              //           children: [
+              //             Text(
+              //               "${c.memberInfo.city}所有铁塔充电桩设备（电动自行车）",
+              //               style: TextStyle(
+              //                   fontSize: 14.sp,
+              //                   color: Color(0xFF245858),
+              //                   fontWeight: FontWeight.w800,
+              //                   height: 1.0
+              //               ),
+              //             )
+              //           ],
+              //         ),
+              //       );
+              //     },
+              //     id: 'updateUI',
+              //   ),
+              // )
             ],
           ),
-          Image(image: "hcd_2".png),
-          Image(image: "hcd_3".png),
-          Image(image: "hcd_4".png),
-          Image(image: "hcd_5".png),
-          Image(image: "hcd_6".png),
         ],
       ),
     );

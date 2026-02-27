@@ -272,11 +272,11 @@ class Assets {
   static const String imagesGyjkuan2x = 'assets/images/gyjkuan@2x.png';
   static const String imagesGyjkuan3x = 'assets/images/gyjkuan@3x.png';
   static const String imagesHcd1 = 'assets/images/hcd_1.png';
-  static const String imagesHcd2 = 'assets/images/hcd_2.png';
-  static const String imagesHcd3 = 'assets/images/hcd_3.png';
-  static const String imagesHcd4 = 'assets/images/hcd_4.png';
-  static const String imagesHcd5 = 'assets/images/hcd_5.png';
-  static const String imagesHcd6 = 'assets/images/hcd_6.png';
+  // static const String imagesHcd2 = 'assets/images/hcd_2.png';
+  // static const String imagesHcd3 = 'assets/images/hcd_3.png';
+  // static const String imagesHcd4 = 'assets/images/hcd_4.png';
+  // static const String imagesHcd5 = 'assets/images/hcd_5.png';
+  // static const String imagesHcd6 = 'assets/images/hcd_6.png';
   static const String imagesHcdBottom = 'assets/images/hcd_bottom.png';
   static const String imagesHomeAdBanner13x = 'assets/images/home_ad_banner_1@3x.png';
   static const String imagesHomeAdBanner23x = 'assets/images/home_ad_banner_2@3x.png';
