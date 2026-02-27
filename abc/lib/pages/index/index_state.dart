@@ -39,7 +39,7 @@ class IndexState {
       {"title":"首页", "icon":"tabbar",'index':0,'selectColor':0xff000000},
       {"title":"财富", "icon":"tabbar",'index':1,'selectColor':0xff000000},
       {"title":"生活", "icon":"tabbar",'index':2,'selectColor':0xff000000},
-      {"title":"乡村振兴", "icon":"tabbar",'index':3,'selectColor':0xff000000},
+      {"title":"资讯", "icon":"tabbar",'index':3,'selectColor':0xff000000},
       {"title":"我的", "icon":"tabbar",'index':4,'selectColor':0xff000000},
     ];
 
