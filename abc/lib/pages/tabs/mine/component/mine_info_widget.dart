@@ -13,6 +13,7 @@ import 'package:wb_base_widget/text_widget/bank_text.dart';
 
 import '../../../../config/abc_config/abc_logic.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../../utils/screen_util.dart';
 import '../../../../utils/sp_util.dart';
 import '../mine_info/mine_info_view.dart';
 
@@ -242,7 +243,30 @@ class _MineInfoWidgetState extends State<MineInfoWidget> {
                       child: Image(image: 'right_arrow_yellow'.png3x, width: 15.w, color: Colors.grey,))
                 ],
               ),
-            ),
+            ).withOnTap(onTap: () {
+              Get.toNamed(Routes.changeNavi, arguments: {
+                'title': '星级专区',
+                'navColor': Colors.white,
+                'defTitleColor': Colors.white,
+                'changeTitleColor': Colors.white,
+                'backColor': Colors.white,
+                
+                'rightWidget': Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image(
+                      image: 'share'.png,
+                      width: 20.w,
+                      height: 20.w,
+                      color: Colors.white,
+                    ).withPadding(right: 12.w).withOnTap(onTap: () {
+                      // TODO: 分享逻辑
+                    }),
+                  ],
+                ),
+                'bodyWidget': _StarLevelPageViewContent(),
+              });
+            }),
             Container(
               alignment: Alignment.center,
               height: 84.w,
@@ -282,6 +306,29 @@ class _MineInfoWidgetState extends State<MineInfoWidget> {
         );
       },
       id: 'updateBalance',
+    );
+  }
+}
+
+/// 星级专区 PageView 内容，展示 level_1 到 level_9 图片，可左右切换
+/// 使用 NotificationListener 吸收横向滑动产生的 ScrollNotification，避免触发顶部导航栏变色
+class _StarLevelPageViewContent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return NotificationListener<ScrollNotification>(
+      onNotification: (_) => true, // 吸收滚动通知，防止 PageView 横向滑动触发导航栏变色
+      child: SizedBox(
+        height: screenWidth,
+        child: PageView(
+          children: List.generate(9, (index) {
+            return Image(
+              image: 'level_${index + 1}'.png3x,
+              fit: BoxFit.contain,
+              width: screenWidth,
+            );
+          }),
+        ),
+      ),
     );
   }
 }
