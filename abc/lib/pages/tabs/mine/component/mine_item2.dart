@@ -63,7 +63,29 @@ class _MineItem2State extends State<MineItem2> with AutomaticKeepAliveClientMixi
           child: Stack(
             children: [
               Image(image: 'bg_mine_item_2'.png3x, fit: BoxFit.fitWidth, width: 1.sw, gaplessPlayback: true,),
-
+              Positioned(child: Container(
+                height: 40.w,
+                width: 1.sw,
+              ).withOnTap(onTap: () {
+                Get.toNamed(Routes.billPagePage);
+              })),
+              Positioned(
+                  left: 125.w,
+                  top: 10.w,
+                  child: Obx(() =>Container(
+                    width: 120.w,
+                    height: 40.w,
+                    color: Colors.transparent,
+                    alignment: Alignment.centerLeft,
+                    child: Image(
+                      image: logic.isOpen.value?'ic_mine_open'.png3x:'ic_mine_close'.png3x,
+                      width: 20.w,
+                      height: 12.w,
+                    ),
+                  ).withOnTap(onTap: (){
+                    logic.isOpen.value = !logic.isOpen.value;
+                  }))
+              ),
               // 支出
               Positioned(
                 left: 35.w,
@@ -155,12 +177,7 @@ class _MineItem2State extends State<MineItem2> with AutomaticKeepAliveClientMixi
                     Get.to(() => YueduoPage());
                   })),
 
-              Positioned(child: Container(
-                height: 40.w,
-                width: 1.sw,
-              ).withOnTap(onTap: () {
-                Get.toNamed(Routes.billPagePage);
-              }))
+
 
             ],
           ),
