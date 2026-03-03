@@ -26,11 +26,18 @@ class MineInfoWidget extends StatefulWidget {
 
 class _MineInfoWidgetState extends State<MineInfoWidget> {
   String _deviceModel = '';
+  int _starLevel = 1;
+
+  static const List<String> _levelNames = [
+    '一星客户', '二星客户', '三星客户', '四星客户', '五星客户',
+    '六星客户', '七星客户', '八星客户', '九星客户',
+  ];
 
   @override
   void initState() {
     super.initState();
     _getDeviceModel();
+    _starLevel = spStarLevel;
   }
 
   Future<void> _getDeviceModel() async {
@@ -50,6 +57,41 @@ class _MineInfoWidgetState extends State<MineInfoWidget> {
       _deviceModel = iosInfo.utsname.machine;
     }
     if (mounted) setState(() {});
+  }
+
+  void _showStarLevelDialog() {
+    Get.dialog(
+      AlertDialog(
+        title: const Text('设置星级'),
+        content: SizedBox(
+          width: double.minPositive,
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: 9,
+            itemBuilder: (context, index) {
+              final level = index + 1;
+              return ListTile(
+                title: Text(_levelNames[index]),
+                trailing: _starLevel == level
+                    ? const Icon(Icons.check, color: Colors.orange)
+                    : null,
+                onTap: () {
+                  level.saveStarLevel;
+                  setState(() => _starLevel = level);
+                  Get.back();
+                },
+              );
+            },
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: const Text('取消'),
+          ),
+        ],
+      ),
+    );
   }
 
   void _showDeviceNameDialog() {
@@ -225,48 +267,51 @@ class _MineInfoWidgetState extends State<MineInfoWidget> {
               ],
             ),
             
-            Container(
-              margin: EdgeInsets.only(top: 20.w, left: 30.w, bottom: 10.w),
-              alignment: Alignment.centerLeft,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image(image: "ic_mine_level".png3x, width: 18.w,),
-                  SizedBox(width: 10.w,),
-                  Text("一星客户", style: TextStyle(
-                    fontSize: 14.w,
-                    color: Colors.black,
-                    height: 1.0
-                  ),),
-                  Container(
-                      margin: EdgeInsets.only(bottom: 1.w),
-                      child: Image(image: 'right_arrow_yellow'.png3x, width: 15.w, color: Colors.grey,))
-                ],
-              ),
-            ).withOnTap(onTap: () {
-              Get.toNamed(Routes.changeNavi, arguments: {
-                'title': '星级专区',
-                'navColor': Colors.white,
-                'defTitleColor': Colors.white,
-                'changeTitleColor': Colors.white,
-                'backColor': Colors.white,
-                
-                'rightWidget': Row(
-                  mainAxisSize: MainAxisSize.min,
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(Routes.changeNavi, arguments: {
+                  'title': '星级专区',
+                  'navColor': Colors.white,
+                  'defTitleColor': Colors.white,
+                  'changeTitleColor': Colors.white,
+                  'backColor': Colors.white,
+                  'rightWidget': Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image(
+                        image: 'share'.png,
+                        width: 20.w,
+                        height: 20.w,
+                        color: Colors.white,
+                      ).withPadding(right: 12.w).withOnTap(onTap: () {
+                        // TODO: 分享逻辑
+                      }),
+                    ],
+                  ),
+                  'bodyWidget': _StarLevelPageViewContent(initialPage: _starLevel - 1),
+                });
+              },
+              onLongPress: _showStarLevelDialog,
+              child: Container(
+                margin: EdgeInsets.only(top: 20.w, left: 30.w, bottom: 10.w),
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image(
-                      image: 'share'.png,
-                      width: 20.w,
-                      height: 20.w,
-                      color: Colors.white,
-                    ).withPadding(right: 12.w).withOnTap(onTap: () {
-                      // TODO: 分享逻辑
-                    }),
+                    Image(image: "ic_mine_level".png3x, width: 18.w,),
+                    SizedBox(width: 10.w,),
+                    Text(_levelNames[_starLevel - 1], style: TextStyle(
+                      fontSize: 14.w,
+                      color: Colors.black,
+                      height: 1.0
+                    ),),
+                    Container(
+                        margin: EdgeInsets.only(bottom: 1.w),
+                        child: Image(image: 'right_arrow_yellow'.png3x, width: 15.w, color: Colors.grey,))
                   ],
                 ),
-                'bodyWidget': _StarLevelPageViewContent(),
-              });
-            }),
+              ),
+            ),
             Container(
               alignment: Alignment.center,
               height: 84.w,
@@ -313,13 +358,18 @@ class _MineInfoWidgetState extends State<MineInfoWidget> {
 /// 星级专区 PageView 内容，展示 level_1 到 level_9 图片，可左右切换
 /// 使用 NotificationListener 吸收横向滑动产生的 ScrollNotification，避免触发顶部导航栏变色
 class _StarLevelPageViewContent extends StatelessWidget {
+  final int initialPage;
+
+  const _StarLevelPageViewContent({this.initialPage = 0});
+
   @override
   Widget build(BuildContext context) {
     return NotificationListener<ScrollNotification>(
-      onNotification: (_) => true, // 吸收滚动通知，防止 PageView 横向滑动触发导航栏变色
+      onNotification: (_) => true,
       child: SizedBox(
         height: screenWidth,
         child: PageView(
+          controller: PageController(initialPage: initialPage),
           children: List.generate(9, (index) {
             return Image(
               image: 'level_${index + 1}'.png3x,

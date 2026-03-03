@@ -46,6 +46,8 @@ class SpKey{
 
   static const String deviceName = "device_name";
 
+  static const String starLevel = "star_level";
+
 }
 
 extension SpExtensionBool on bool {
@@ -96,6 +98,10 @@ extension SpExtension on String{
 
 }
 
+extension SpExtensionInt on int {
+  void get saveStarLevel => SpUtil.putInt(SpKey.starLevel, this);
+}
+
 
 Future<bool>? get removeAllData => SpUtil.clear();
 
@@ -139,5 +145,10 @@ String get spLastYear => SpUtil.getString("${SpKey.lastYear}${AppConfig.config.a
 String get spBillData => SpUtil.getString("${SpKey.billData}${AppConfig.config.abcLogic.memberInfo.account}")??'';
 
 String get spDeviceName => SpUtil.getString(SpKey.deviceName)??'';
+
+int get spStarLevel {
+  final v = SpUtil.getInt(SpKey.starLevel) ?? 0;
+  return (v >= 1 && v <= 9) ? v : 1;
+}
 
 
