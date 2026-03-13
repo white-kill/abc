@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:wb_base_widget/extension/double_extension.dart';
 import 'package:wb_base_widget/extension/widget_extension.dart';
 import 'package:wb_base_widget/text_widget/bank_text.dart';
 
@@ -95,7 +96,7 @@ class _MineItem2State extends State<MineItem2> with AutomaticKeepAliveClientMixi
                   child: logic.isOpen.value
                       ? BaseText(
                     text:
-                    '¥ ${AppConfig.config.abcLogic.memberInfo.expensesTotal}',
+                    '¥ ${AppConfig.config.abcLogic.memberInfo.expensesTotal.bankBalance}',
                     style: TextStyle(
                       color: Color(0xff333333),
                       fontWeight: FontWeight.w400,
@@ -114,7 +115,7 @@ class _MineItem2State extends State<MineItem2> with AutomaticKeepAliveClientMixi
                   child:  logic.isOpen.value
                       ? BaseText(
                     text:
-                    '¥ ${AppConfig.config.abcLogic.memberInfo.incomeTotal}',
+                    '¥ ${AppConfig.config.abcLogic.memberInfo.incomeTotal.bankBalance}',
                     style: TextStyle(
                       color: Color(0xff333333),
                       fontWeight: FontWeight.w400,
@@ -220,7 +221,7 @@ class _MineItem2State extends State<MineItem2> with AutomaticKeepAliveClientMixi
                             child: logic.isOpen.value
                                 ? BaseText(
                               text:
-                              '¥ ${AppConfig.config.abcLogic.memberInfo.expensesTotal}',
+                              '¥ ${AppConfig.config.abcLogic.memberInfo.expensesTotal.bankBalance}',
                               style: TextStyle(
                                 color: Color(0xff333333),
                                 fontWeight: FontWeight.w400,
@@ -247,7 +248,7 @@ class _MineItem2State extends State<MineItem2> with AutomaticKeepAliveClientMixi
                             child:  logic.isOpen.value
                                 ? BaseText(
                               text:
-                              '¥ ${AppConfig.config.abcLogic.memberInfo.incomeTotal}',
+                              '¥ ${AppConfig.config.abcLogic.memberInfo.incomeTotal.bankBalance}',
                               style: TextStyle(
                                 color: Color(0xff333333),
                                 fontWeight: FontWeight.w400,
