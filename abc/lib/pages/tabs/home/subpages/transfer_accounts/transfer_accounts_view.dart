@@ -321,6 +321,42 @@ class TransferAccountsPage extends BaseStateless {
                     height: 3.w,
                     color: Color(0xffF8F9FA),
                   ),
+
+                  Container(
+                    height: 60.w,
+                    margin: EdgeInsets.only(left: 50.w),
+                    child: Row(
+                      children: [
+                        netImage(url: 'http://img.chinajianse.com/bank/icon/ABC.png', width: 28.w, height: 28.w, radius: 19.w),
+                        SizedBox(width: 8.w),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            BaseText(
+                              text: AppConfig.config.abcLogic.bankName(),
+                              color: Color(0xff333333),
+                              fontSize: 16.sp,
+                            ),
+                            SizedBox(height: 6.w),
+                            BaseText(
+                              text: '(${AppConfig.config.abcLogic.card()})',
+                              color: Color(0xff666666),
+                              fontSize: 13.sp,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  Container(
+                    color: Color(0xffE5E5E5),
+                    width: 358.w,
+                    height: 1.w,
+                    margin: EdgeInsets.only(left: 17.w),
+                  ),
+
                   GetBuilder(
                     builder: (TransferAccountsLogic c) {
                       return ListView.separated(

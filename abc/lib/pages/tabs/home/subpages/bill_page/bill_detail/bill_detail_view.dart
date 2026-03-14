@@ -222,9 +222,62 @@ class BillDetailPage extends BaseStateless {
                       logic.categoryText.value,
                       style:
                           TextStyle(fontSize: 15.sp, color: Color(0xFFC4C4C4)),
-                    ))
+                    )),
+                Positioned(
+                  top: 160.w,
+
+                  child:             Container(
+                  height: 95.w,
+                  width: 1.sw,
+                  color: Colors.white,
+                  padding: EdgeInsets.only(left: 15.w, right: 15.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 10.w,
+                      ),
+                      BaseText(
+                        text: '备注',
+                        fontSize: 15.sp,
+                      ),
+                      TextFieldWidget(
+                        textAlign: TextAlign.start,
+                        style: TextStyle(fontSize: 14.sp),
+                        hintStyle: TextStyle(
+                          color: Color(0xff999999),
+                          fontSize: 14.sp,
+                        ),
+                        hintText: '记录点什么......',
+                      ),
+                      Container(
+                        height: 1.w,
+                        width: 345.w,
+                        color: Color(0xffCCCCCC),
+                      ),
+                      // Container(
+                      //   width: 1.sw,
+                      //   height: 30.w,
+                      //   color: Colors.white,
+                      //   padding: EdgeInsets.only(top: 8.w),
+                      //   alignment: logic.billDetail.type == '1'?Alignment.topCenter:Alignment.topCenter,
+                      //   child: BaseText(text: logic.zdStr,color: Colors.orangeAccent,).withOnTap(onTap: (){
+                      //     Get.toNamed(Routes.cardTransferPage,arguments: {
+                      //       // 'cardInfo':{
+                      //       //   'bankCard':model.bankCard,
+                      //       //   'icon':model.icon,
+                      //       //   'bankName':model.bankName,
+                      //       //   'name':model.name,
+                      //       //   'id':model.bankId
+                      //       // }
+                      //     });
+                      //   }),
+                      // ),
+                    ],
+                  ),
+                ),)
               ],
-            )
+            ),
             // ListView.separated(
             //   shrinkWrap: true,
             //   physics: const NeverScrollableScrollPhysics(),

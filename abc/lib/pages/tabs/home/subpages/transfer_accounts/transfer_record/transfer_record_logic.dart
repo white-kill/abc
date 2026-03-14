@@ -35,11 +35,11 @@ class TransferRecordLogic extends GetxController {
       }
       showFirst = false;
       if(state.reqData.pageNum == 1){
-        state.list = state.transferListModel.list;
-        state.originalList = List.from(state.transferListModel.list); // 保存原始列表
+        state.originalList = List.from(state.transferListModel.list);
+        state.list = _deduplicateDay(state.originalList);
       }else{
-        state.list = state.list + state.transferListModel.list;
-        state.originalList = state.originalList + state.transferListModel.list; // 追加到原始列表
+        state.originalList = state.originalList + state.transferListModel.list;
+        state.list = _deduplicateDay(state.originalList);
       }
 
       // 如果有搜索关键词，重新执行搜索
@@ -68,20 +68,37 @@ class TransferRecordLogic extends GetxController {
     String searchVal = state.searchController.text.trim();
     
     if(searchVal.isEmpty){
-      // 如果搜索关键词为空，恢复原始列表
-      state.list = List.from(state.originalList);
+      state.list = _deduplicateDay(List.from(state.originalList));
     } else {
-      // 根据 oppositeName 和 oppositeAccount 进行模糊查询
-      state.list = state.originalList.where((item) {
+      List filtered = state.originalList.where((item) {
         String oppositeName = item.oppositeName.toLowerCase();
         String oppositeAccount = item.oppositeAccount.toLowerCase();
         String searchLower = searchVal.toLowerCase();
         
         return oppositeName.contains(searchLower) || oppositeAccount.contains(searchLower);
       }).toList();
+      state.list = _deduplicateDay(filtered);
     }
     
     update(['updateUI']);
+  }
+
+  List<NewTransferListList> _deduplicateDay(List source) {
+    final seen = <String>{};
+    return source.map((item) {
+      final copy = NewTransferListList()
+        ..id = item.id
+        ..excerpt = item.excerpt
+        ..amount = item.amount
+        ..type = item.type
+        ..transactionTime = item.transactionTime
+        ..oppositeAccount = item.oppositeAccount
+        ..oppositeName = item.oppositeName
+        ..icon = item.icon
+        ..day = (item.day != '' && seen.add(item.day)) ? item.day : ''
+        ..billDetail = item.billDetail;
+      return copy;
+    }).toList();
   }
 
   void changeTime(){
