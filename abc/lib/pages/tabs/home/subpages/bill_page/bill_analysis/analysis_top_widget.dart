@@ -49,7 +49,7 @@ class _AnalysisTopWidgetState extends State<AnalysisTopWidget> {
         builder: (BillAnalysisLogic c) {
           return Row(
             children: [
-              _tagWidget(c.state.time).withOnTap(onTap: () {
+              _tagWidget(_formatTime(c.state.time)).withOnTap(onTap: () {
                 SheetBottom.show(
                     showTopText: true,
                     title: '',
@@ -92,6 +92,15 @@ class _AnalysisTopWidgetState extends State<AnalysisTopWidget> {
         id: 'upDateTopWidget',
       ),
     );
+  }
+
+  String _formatTime(String time) {
+    try {
+      final date = DateFormat("yyyy-MM").parse(time);
+      return '${date.year}年${date.month}月';
+    } catch (_) {
+      return time;
+    }
   }
 
   Widget _tagWidget(String content) {

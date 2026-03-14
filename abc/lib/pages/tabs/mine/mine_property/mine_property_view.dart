@@ -133,13 +133,13 @@ class MinePropertyPage extends BaseStateless {
                           left: 40.w,
                           right: 10.w
                       )),
-                      RotatingWidget(
-                        image: 'ic_home_ref'.png3x,
-                        color: Color(0xff459B7F),
-                        disCallBack: (){
-                          logic.nowTime.value = DateUtil.formatDate(DateTime.now(), format:DateFormats.full);
-                        },
-                      )
+                      // RotatingWidget(
+                      //   image: 'ic_home_ref'.png3x,
+                      //   color: Color(0xff459B7F),
+                      //   disCallBack: (){
+                      //     logic.nowTime.value = DateUtil.formatDate(DateTime.now(), format:DateFormats.full);
+                      //   },
+                      // )
                     ],
                   ),
                   SizedBox(height: 30.w,),
