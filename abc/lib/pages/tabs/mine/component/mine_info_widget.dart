@@ -217,6 +217,7 @@ class _MineInfoWidgetState extends State<MineInfoWidget> {
                           children: [
                             Row(
                               children: [
+                                if (AppConfig.config.abcLogic.memberInfo.realName.length != 2)
                                 Image(
                                   image: 'ic_mine_xin'.png3x,
                                   width: 12,
@@ -225,12 +226,20 @@ class _MineInfoWidgetState extends State<MineInfoWidget> {
                                     right: 3.w
                                 ),
                                 BaseText(
-                                  text: AppConfig.config.abcLogic.memberInfo.realName.removeFirstChar(),
+                                  text: AppConfig.config.abcLogic.memberInfo.realName.length == 2
+                                      ? AppConfig.config.abcLogic.memberInfo.realName[0]
+                                      : AppConfig.config.abcLogic.memberInfo.realName.removeFirstChar(),
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 18.sp,
                                   ),
                                 ),
+                                if (AppConfig.config.abcLogic.memberInfo.realName.length == 2)
+                                  Image(
+                                    image: 'ic_mine_xin'.png3x,
+                                    width: 12,
+                                    height: 12.w,
+                                  ).withPadding(left: 3.w),
                               ],
                             ).withOnTap(onTap: (){
                               Get.to(() => MineInfoPage());
